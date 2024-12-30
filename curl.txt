@@ -1,0 +1,10 @@
+curl -X GET http://localhost:8000/Logement
+curl -X POST 'http://localhost:8000/Adresse/?Numero=14&Voie=place&Nom_voie=de%20la%20Rivière&Code=43241'
+curl -X POST 'http://localhost:8000/Facture/?type_facture=gaz&montant=66&valeur_consommee=133&date='2024-02-01'&id_logement=1
+
+curl -X POST 'http://localhost:8000/Type_actionneur_capteur/?unite=%humidite&precision=0.01'
+curl -X POST 'http://localhost:8000/Actionneur_capteur/?reference=DTH11&port=8000&id_type=2&id_piece=1'
+curl -X POST 'http://localhost:8000/Actionneur_capteur/?reference=DTH11&port=8000&id_type=5&id_piece=1'
+
+curl -X POST 'http://localhost:8000/Mesure/?temperature=25.50&humidity=37.00'
+curl -X POST 'http://localhost:8000/Mesure/?temperature=24&humidity=37.00'

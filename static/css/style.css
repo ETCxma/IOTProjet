@@ -1,0 +1,15 @@
+
+
+
+.header-nav .nav-profile {
+    color: #012970;
+  }
+  
+  .nav-item .nav-profile img {
+    max-height: 30px;
+  }
+  
+  .header-nav .nav-profile span {
+    font-size: 14px;
+    font-weight: 600;
+  }

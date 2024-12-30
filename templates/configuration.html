@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuration</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"> <!-- Pour les icônes -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href  ="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="{{ url_for('static', path='css/style.css') }}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-sm bg-success navbar-dark">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Domotique</a>
+              </div>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link active" href="/">Accueil</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/consommation">Consommation</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/capteurs">Capteurs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="/economies">Economies</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/configuration">Configuration</a>
+            </li>
+            <li class="nav-item dropdown pe-3">
+
+                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                  <img src="{{ url_for('static', path='img/profile-icon2.png') }}" alt="Profile" class="rounded-circle">
+                  <span class="d-none d-md-block dropdown-toggle ps-2">T. Anderson</span>
+                </a><!-- End Profile Iamge Icon -->
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                    <li class="dropdown-header">
+                      <h6>Thomas A. Anderson</h6>
+                      <span>Web Designer</span>
+                    </li>
+                    <li>
+                      <hr class="dropdown-divider">
+                    </li>
+        
+                    <li>
+                      <a class="dropdown-item d-flex align-items-center" href="users-profile">
+                        <i class="bi bi-person"></i>
+                        <span>My Profile</span>
+                      </a>
+                    </li>
+                    <li>
+                      <hr class="dropdown-divider">
+                    </li>
+        
+                    <li>
+                      <a class="dropdown-item d-flex align-items-center" href="users-profile">
+                        <i class="bi bi-gear"></i>
+                        <span>Account Settings</span>
+                      </a>
+                    </li>
+                    <li>
+                      <hr class="dropdown-divider">
+                    </li>
+        
+                    <li>
+                      <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                        <i class="bi bi-question-circle"></i>
+                        <span>Need Help?</span>
+                      </a>
+                    </li>
+                    <li>
+                      <hr class="dropdown-divider">
+                    </li>
+        
+                    <li>
+                      <a class="dropdown-item d-flex align-items-center" href="#">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>Sign Out</span>
+                      </a>
+                    </li>
+        
+                  </ul><!-- End Profile Dropdown Items -->
+        
+            </li>
+
+          </ul>
+        </div>
+      </nav>
+
+
+    <!-- Titre de la page -->
+    <div class="container mt-5">
+        <h1 class="text-center">Configuration</h1>
+        <p class="lead text-center">Ajouter, supprimer des capteurs, gérer l'historique des mesures, ...</p>
+        
+        <!-- Graphique de consommation -->
+        <!-- <div class="row">
+            <div class="col-md-4">
+                <canvas id="consommationChart"></canvas>
+            </div> -->
+            <!-- <div class="col-md-4">
+                <canvas id="consommationChart2"></canvas>
+            </div> -->
+            <!-- <div class="col-md-4">
+                <canvas id="consommationChart3"></canvas>
+            </div> -->
+        </div>
+    </div>
+
+    <!-- Tabs charts -->
+    <div class="col-xl-12">
+
+        <div class="card">
+          <div class="card-body pt-3">
+            <!-- Bordered Tabs -->
+            <ul class="nav nav-tabs nav-tabs-bordered">
+
+              <li class="nav-item">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#addCapteur">Ajouter un capteur</button>
+              </li>
+
+              <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#removeCapteur">Supprimer un capteur</button>
+              </li>
+
+              <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#mesureHistory">Historique des mesures</button>
+              </li>
+
+
+            </ul>
+            <div class="tab-content pt-2">
+              
+                <div class="tab-pane fade show active addCapteur pt-3" id="addCapteur">
+                    
+                    <div class="tab-pane profile-edit pt-3" id="profile-edit">
+
+                        <!-- Profile Edit Form -->
+                        <form id="addCapteurForm">
+      
+                          <div class="row mb-3">
+                            <label for="reference" class="col-md-4 col-lg-3 col-form-label">Référence</label>
+                            <div class="col-md-2">
+                              <input name="reference" type="text" class="form-control" id="reference" required>
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <label for="port" class="col-md-4 col-lg-3 col-form-label">Port</label>
+                            <div class="col-md-1">
+                              <input name="port" type="number" class="form-control" min="1" id="port" required>
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <label for="unite" class="col-md-4 col-lg-3 col-form-label">Unité</label>
+                            <div class="col-md-2">
+                              <input name="unite" type="text" class="form-control" id="unite" required>
+                            </div>
+                          </div>
+      
+                          <div class="row mb-3">
+                            <label for="precision" class="col-md-4 col-lg-3 col-form-label">Précision</label>
+                            <div class="col-md-2">
+                              <input name="precision" type="text" pattern="^\d+(\.\d+)?$" class="form-control" id="precision" title="Entrer un nombre décimal" required>
+                            </div>
+                          </div>
+    
+
+      
+                          <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Ajouter</button>
+                          </div>
+                        </form><!-- End CapteurAdd Form -->
+      
+                      </div>
+
+                </div>
+
+              <div class="tab-pane fade removeCapteur pt-3" id="removeCapteur">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-unbordered" id="table">
+                            <thead>
+                                <tr>
+                                    <th>Capteur</th>
+                                    <th>Port</th>
+                                    <th>Date d'ajout</th>
+                                    <th>Supprimer</th>
+
+                                </tr>
+                            </thead>
+                            <tbody id="tableBodyCapteurs">
+                                <td>
+                                    ${key}
+                                </td>
+                                <td>${value[0][value[0].length - 1]} </td>
+                                <td>${value[0][value[0].length - 1]} </td>
+                                <td><a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a></td>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <canvas id="ChartEauConso"></canvas>
+                  </div>
+                  <div class="col-md-6">
+                    <canvas id="ChartEauCout"></canvas>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-pane fade mesureHistory pt-3" id="mesureHistory">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-unbordered" id="table">
+                            <thead>
+                                <tr>
+                                    <th>Capteur (Cliquer pour révéler)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBodyHistory">
+                                <td>                                                
+                                    <button data-bs-toggle="collapse" data-bs-target="#capteurA">
+                                    ${key}
+                                    </button>
+                                    <div id="capteurA" class="collapse">
+
+                                        <table class="table table-bordered" id="table2">
+                                            <thead>
+                                                    <tr>
+                                                    <th>Valeur mesurée</th>
+                                                    <th>Date de mesure</th>
+                                                    <th>Supprimer</th>
+                
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tableBody2">
+                                                <td>
+                                                    s
+                                                </td>
+                                                <td>${value[0][value[0].length - 1]} </td>
+                                                <td><a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a></td>
+                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <canvas id="ChartEauConso"></canvas>
+                  </div>
+                  <div class="col-md-6">
+                    <canvas id="ChartEauCout"></canvas>
+                  </div>
+                </div>
+              </div>
+
+
+            </div><!-- End Bordered Tabs -->
+
+
+
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4">
+        <p>&copy; 2024 Mon Système Domotique. Tous droits réservés.</p>
+    </footer>
+
+    <!-- Script pour récupérer les variables -->
+    <script>
+        var mesures_by_capteur = {{ mesures_by_capteur | tojson }};
+        var capteurs = {{ capteurs | tojson }};
+    </script>
+  
+
+    <!-- Lien vers JS statique -->
+    <script src="{{ url_for('static', path='js/configuration.js') }}"></script>
+     
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>  
+
+</body>
