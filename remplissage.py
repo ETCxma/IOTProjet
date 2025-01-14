@@ -2,7 +2,7 @@ import sqlite3, random
 from random import randint
 
 # ouverture/initialisation de la base de donnee 
-conn = sqlite3.connect('static/logement.db')
+conn = sqlite3.connect('static/db/logement.db')
 conn.row_factory = sqlite3.Row
 c = conn.cursor()
 
